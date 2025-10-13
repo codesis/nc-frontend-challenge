@@ -1,0 +1,38 @@
+<div class="countdown">
+  <h1 appTextFit>{{ title() ? 'Time to ' + title() : 'Countdown' }}</h1>
+  <h2
+    appTextFit
+    #countdown
+    role="timer"
+    aria-live="off"
+    aria-label="{{ title() ? 'Time remaining until ' + title() : 'Select a date to start countdown' }}"
+  >
+    {{ timeLeft() || 'Select a date to start countdown' }}
+  </h2>
+
+  <app-quote (quoteReady)="onQuoteReady()"></app-quote>
+
+  <div class="input__container">
+    <app-input
+      label="Title"
+      type="text"
+      id="title"
+      name="title"
+      autocomplete="off"
+      [(ngModel)]="title"
+      (ngModelChange)="onTitleChange($event)"
+    >
+    </app-input>
+
+    <app-input
+      label="Date"
+      type="date"
+      id="date"
+      name="date"
+      [min]="minDate"
+      [(ngModel)]="date"
+      (ngModelChange)="onDateChange()"
+    >
+    </app-input>
+  </div>
+</div>

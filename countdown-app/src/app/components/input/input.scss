@@ -1,0 +1,24 @@
+div {
+  position: relative;
+
+  label::before {
+    content: attr(data-label);
+    position: absolute;
+    top: -0.5rem;
+    left: 0.25rem;
+    background: #f9f2f2;
+    padding: 0 0.25rem;
+    font-size: 0.9rem;
+  }
+
+  input {
+    padding: 0.5rem;
+    width: 250px;
+    height: 45px;
+    font-size: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #959393;
+    border-radius: 4px;
+    background-color: #f9f2f2;
+  }
+}

@@ -1,0 +1,15 @@
+<div>
+  <label [attr.data-label]="label" aria-label="Countdown {{ label }}">
+    <input
+      [type]="type"
+      [id]="id"
+      [name]="name"
+      [(ngModel)]="value"
+      [min]="min"
+      [autocomplete]="autocomplete"
+      (ngModelChange)="onChange($event)"
+      (blur)="onTouched()"
+      [disabled]="disabled"
+    />
+  </label>
+</div>
