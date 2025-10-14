@@ -1,8 +1,6 @@
 import {
   Component,
-  ElementRef,
   Input,
-  Renderer2,
   forwardRef,
 } from '@angular/core'
 import { CommonModule } from '@angular/common'
@@ -45,37 +43,6 @@ export class InputComponent implements ControlValueAccessor {
     }
   }
   disabled = false
-
-  constructor(
-    private host: ElementRef,
-    private renderer: Renderer2,
-  ) {}
-
-  ngAfterViewInit() {
-    const hostEl = this.host.nativeElement as HTMLElement
-    const inputEl = hostEl.querySelector('input')
-    if (!inputEl) return
-
-    // Exclude known component inputs
-    const exclude = [
-      'id',
-      'label',
-      'name',
-      'autocomplete',
-      'type',
-      'min',
-      'ngModel',
-      'ngModelChange',
-      'blur',
-      'disabled',
-    ]
-    for (const attr of Array.from(hostEl.attributes)) {
-      const name = attr.name
-      if (!exclude.includes(name)) {
-        this.renderer.setAttribute(inputEl, name, attr.value)
-      }
-    }
-  }
 
   onChange = (value: any) => {}
   onTouched = () => {}
