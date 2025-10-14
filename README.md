@@ -10,4 +10,4 @@ Frontend challenge for Natural Cycles in Angular and TypeScript.
 ### To reuse the textfit directive:
 - Import the **TextFitDirective** in the component you wish you use it and use it in imports, e.g. in countdown.ts
 
-[Demo on Netlify]()
+[Demo on Netlify](https://emmasfrontendchallenge.netlify.app/)
