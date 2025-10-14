@@ -1,0 +1,7 @@
+[build]
+  base = "countdown-app"
+  command = "npm run build"
+  publish = "countdown-app/dist/countdown-app/browser"
+
+[build.environment]
+  NODE_VERSION = "22"
