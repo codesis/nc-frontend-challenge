@@ -65,21 +65,21 @@ export class TextFitDirective implements AfterViewInit, OnDestroy {
 
     this.el.style.whiteSpace = 'nowrap';
 
-    let min = 1;
-    let max = 1000;
-    let fontSize = min;
+    let min = signal(1);
+    let max = signal(1000);
+    let fontSize = min();
 
-    while (min <= max) {
-      const mid = Math.floor((min + max) / 2);
+    while (min() <= max()) {
+      const mid = Math.floor((min() + max()) / 2);
       this.el.style.fontSize = mid + 'px';
 
       const elWidth = this.el.scrollWidth;
 
       if (elWidth > parentWidth) {
-        max = mid - 1;
+        max.set(mid - 1);
       } else {
         fontSize = mid;
-        min = mid + 1;
+        min.set(mid + 1);
       }
     }
 
