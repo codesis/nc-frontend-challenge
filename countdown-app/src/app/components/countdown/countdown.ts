@@ -87,6 +87,6 @@ export class CountdownComponent implements AfterViewInit, OnDestroy {
     const minutes = Math.floor((this.diff() / (1000 * 60)) % 60)
     const seconds = Math.floor((this.diff() / 1000) % 60)
     const daysText = days === 1 ? 'day' : 'days'
-    this.countdownElement.nativeElement.innerText = `${days} ${daysText}, ${hours}h, ${minutes}m, ${seconds}s`
+    this.countdownElement.nativeElement.innerText = `${days} ${daysText}, ${hours} h, ${minutes}m, ${seconds}s`
   }
 }
