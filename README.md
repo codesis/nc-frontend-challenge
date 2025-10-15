@@ -13,4 +13,4 @@ Frontend challenge for Natural Cycles in Angular and TypeScript.
 - Add `appTextFit` to the html element that you wish to be resized 
 
 ## Suggestions of improvement
-- In this working application the input from the text and date inputs are immedietly displayed in the h1 and h2 elements. As the textfit is active on these elements, the evaluation of the fontsize triggers layout change which makes it annoying to use the text input as the user sees the layout being reflowed. My suggestion of improvement for this would be to have a button to update the title and the countdown which would also make it more user friendly.
+- In this working application the input from the text and date inputs are immedietly displayed in the h1 and h2 elements. Because TextFit updates the font size immediately and continuously while the user types, it can make the input difficult to use. My suggestion of improvement for this would be to have a button to update the title and the countdown which would also make the interface more user friendly.
