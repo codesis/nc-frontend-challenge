@@ -1,8 +1,4 @@
-import {
-  Component,
-  Input,
-  forwardRef,
-} from '@angular/core'
+import { Component, Input, forwardRef } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import {
   FormsModule,

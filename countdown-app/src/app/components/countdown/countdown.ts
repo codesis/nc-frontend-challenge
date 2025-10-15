@@ -81,14 +81,6 @@ export class CountdownComponent implements AfterViewInit, OnDestroy {
     this.localStorageService.setItem(this._savedTitleKey, this.title())
   }
 
-  onQuoteReady() {
-    const quoteEl = document.querySelector('app-quote p')
-    if (quoteEl) {
-      window.dispatchEvent(new Event('resize'))
-      window.dispatchEvent(new Event('orientationchange'))
-    }
-  }
-
   updateCountdown() {
     const days = Math.floor(this.diff() / (1000 * 60 * 60 * 24))
     const hours = Math.floor((this.diff() / (1000 * 60 * 60)) % 24)

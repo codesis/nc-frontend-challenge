@@ -1,4 +1,11 @@
-import { Directive, ElementRef, AfterViewInit, OnDestroy, ViewChildren, QueryList, signal } from '@angular/core'
+import {
+  Directive,
+  ElementRef,
+  AfterViewInit,
+  OnDestroy,
+  ViewChildren,
+  QueryList,
+} from '@angular/core'
 
 @Directive({
   selector: '[appTextFit]',
@@ -7,9 +14,9 @@ export class TextFitDirective implements AfterViewInit, OnDestroy {
   private el: HTMLElement
   private resizeObserver?: ResizeObserver
   private mutationObserver?: MutationObserver
-  private fitTextBound = () => this.resize()
   private debounceTimeout?: any
-  @ViewChildren(TextFitDirective) textFitDirectives!: QueryList<TextFitDirective>;
+  @ViewChildren(TextFitDirective)
+  textFitDirectives!: QueryList<TextFitDirective>
 
   constructor(private elementRef: ElementRef<HTMLElement>) {
     this.el = this.elementRef.nativeElement
@@ -19,6 +26,7 @@ export class TextFitDirective implements AfterViewInit, OnDestroy {
     this.resize()
 
     const parent = this.el.parentElement
+
     if (parent && typeof ResizeObserver !== 'undefined') {
       this.resizeObserver = new ResizeObserver(() => {
         requestAnimationFrame(() => this.resize())
@@ -36,19 +44,9 @@ export class TextFitDirective implements AfterViewInit, OnDestroy {
         subtree: true,
       })
     }
-
-    if (this.isBrowser()) {
-      window.addEventListener('resize', this.debouncedFitText.bind(this))
-    }
-  }
-
-  private isBrowser(): boolean {
-    return typeof window !== 'undefined'
   }
 
   public debouncedFitText() {
-    if (!this.isBrowser()) return
-
     clearTimeout(this.debounceTimeout)
     this.debounceTimeout = setTimeout(() => {
       const scrollY = window.scrollY
@@ -60,37 +58,34 @@ export class TextFitDirective implements AfterViewInit, OnDestroy {
   }
 
   private resize() {
-    const parentWidth = this.el.parentElement?.clientWidth;
-    if (!parentWidth) return;
+    const parentWidth = this.el.parentElement?.clientWidth
+    if (!parentWidth) return
 
-    this.el.style.whiteSpace = 'nowrap';
+    this.el.style.whiteSpace = 'nowrap'
 
-    let min = signal(1);
-    let max = signal(1000);
-    let fontSize = min();
+    let min = 1
+    let max = 1000
+    let fontSize = min
 
-    while (min() <= max()) {
-      const mid = Math.floor((min() + max()) / 2);
-      this.el.style.fontSize = mid + 'px';
+    while (min <= max) {
+      const mid = Math.floor((min + max) / 2)
+      this.el.style.fontSize = mid + 'px'
 
-      const elWidth = this.el.scrollWidth;
+      const elWidth = this.el.scrollWidth
 
       if (elWidth > parentWidth) {
-        max.set(mid - 1);
+        max = mid - 1
       } else {
-        fontSize = mid;
-        min.set(mid + 1);
+        fontSize = mid
+        min = mid + 1
       }
     }
 
-    this.el.style.fontSize = fontSize + 'px';
+    this.el.style.fontSize = fontSize + 'px'
   }
 
   ngOnDestroy(): void {
     this.resizeObserver?.disconnect()
     this.mutationObserver?.disconnect()
-    if (this.isBrowser()) {
-      window.removeEventListener('resize', this.fitTextBound)
-    }
   }
 }

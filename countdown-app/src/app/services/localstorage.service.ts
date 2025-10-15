@@ -1,59 +1,32 @@
-import { DOCUMENT, isPlatformBrowser } from '@angular/common'
-import { inject, Injectable, InjectionToken, PLATFORM_ID } from '@angular/core'
-
-function mockLocalStorage(): Storage {
-  return {
-    length: 0,
-    key: () => null,
-    getItem: () => null,
-    setItem: () => null,
-    removeItem: () => null,
-    clear: () => null,
-  }
-}
-
-export const LOCAL_STORAGE_TOKEN = new InjectionToken<Storage>(
-  'LOCAL_STORAGE_TOKEN',
-  {
-    factory: () => {
-      const platformId = inject(PLATFORM_ID)
-      const isBrowser = isPlatformBrowser(platformId)
-      const document = inject(DOCUMENT)
-
-      if (isBrowser) {
-        return document.defaultView?.localStorage ?? mockLocalStorage()
-      } else {
-        return mockLocalStorage()
-      }
-    },
-  },
-)
+import { Injectable } from '@angular/core'
 
 @Injectable({
   providedIn: 'root',
 })
-export class LocalStorageService implements Storage {
-  private _storage = inject(LOCAL_STORAGE_TOKEN)
+export class LocalStorageService {
+  private storage = localStorage
 
-  readonly enabled = isPlatformBrowser(inject(PLATFORM_ID))
-
-  get length() {
-    return this._storage.length
+  getItem(key: string): string | null {
+    return this.storage.getItem(key)
   }
 
-  clear() {
-    this._storage.clear()
-  }
-  getItem(key: string) {
-    return this._storage.getItem(key)
-  }
-  key(index: number) {
-    return this._storage.key(index)
-  }
-  removeItem(key: string): void {
-    this._storage.removeItem(key)
-  }
   setItem(key: string, value: string): void {
-    this._storage.setItem(key, value)
+    this.storage.setItem(key, value)
+  }
+
+  removeItem(key: string): void {
+    this.storage.removeItem(key)
+  }
+
+  clear(): void {
+    this.storage.clear()
+  }
+
+  get length(): number {
+    return this.storage.length
+  }
+
+  key(index: number): string | null {
+    return this.storage.key(index)
   }
 }

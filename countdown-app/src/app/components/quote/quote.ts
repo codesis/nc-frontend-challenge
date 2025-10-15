@@ -33,14 +33,12 @@ export class QuoteComponent implements OnInit {
           this.quote.set(data?.quote)
           this.loading.set(false)
           this.cd.detectChanges()
-          this.quoteReady.emit()
         })
       })
       .catch(() => {
         this.quote.set('Quote unavailable')
         this.cd.detectChanges()
         this.loading.set(false)
-        this.quoteReady.emit()
       })
   }
 }
